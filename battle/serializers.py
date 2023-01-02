@@ -19,7 +19,7 @@ class BattleListSerializer(serializers.ModelSerializer):
 class BattleCreateSerializer(serializers.ModelSerializer):
     monsterA = MonsterSerializer(write_only=True)
     monsterB = MonsterSerializer(write_only=True)
-    winner = MonsterSerializer(read_only=True)
+    winner = MonsterListRetrieveUpdateSerializer(read_only=True)
 
     class Meta:
         model = Battle

@@ -24,12 +24,13 @@ class MonsterListRetrieveUpdateSerializer(serializers.ModelSerializer):
 
     imageUrl = serializers.URLField()
 
-    battles = serializers.SerializerMethodField('get_monster_battles')
+    battles = serializers.SerializerMethodField("get_monster_battles")
 
     def get_monster_battles(self, obj):
-        array = [BattleListPKSerializer(item).data for item in Battle.objects.filter(
-            Q(monsterA=obj) | Q(monsterB=obj)
-        )]
+        array = [
+            BattleListPKSerializer(item).data
+            for item in Battle.objects.filter(Q(monsterA=obj) | Q(monsterB=obj))
+        ]
 
         return array
 
