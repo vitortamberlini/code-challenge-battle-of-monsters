@@ -9,7 +9,7 @@ from django.http import Http404
 
 from monster.models import Monster
 from monster.nested_serializers import MonsterListRetrieveUpdateSerializer
-from monster.serializers import MonsterSerializer, MonsterFileSerializer
+from monster.serializers import MonsterFileSerializer
 
 
 # Create your views here.
@@ -90,12 +90,9 @@ class MonsterImportView(mixins.CreateModelMixin, viewsets.GenericViewSet):
             reader = csv.DictReader(codecs.iterdecode(file, "utf-8"), delimiter=",")
             data = list(reader)
 
-            serializer = MonsterSerializer(data=data, many=True)
+            serializer = MonsterListRetrieveUpdateSerializer(data=data, many=True)
             serializer.is_valid(raise_exception=True)
-
-            monster_list = [Monster(**row) for row in serializer.validated_data]
-
-            Monster.objects.bulk_create(monster_list)
+            serializer.save()
 
             headers = self.get_success_headers(serializer.data)
 
