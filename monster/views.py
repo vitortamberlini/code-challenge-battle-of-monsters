@@ -22,31 +22,13 @@ class MonsterListCreateView(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     queryset = Monster.objects.all().order_by("name")
     serializer_class = MonsterListRetrieveUpdateSerializer
-    serializer_create_class = MonsterSerializer
     pagination_class = None
     authentication_classes = []
     permission_classes = []
 
-    def get_serializer_class(self):
-        if self.action == "create":
-            return self.serializer_create_class
-        return self.serializer_class
-
     @transaction.atomic
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(
-            data=request.data, context={"request": request}
-        )
-
-        serializer.is_valid(raise_exception=True)
-
-        self.perform_create(serializer)
-
-        headers = self.get_success_headers(serializer.data)
-
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
-        )
+        return super(MonsterListCreateView, self).create(request, *args, **kwargs)
 
 
 class MonsterUpdateRetrieveDeleteView(
