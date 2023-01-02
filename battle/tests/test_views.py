@@ -6,7 +6,7 @@ from battle.models import Battle
 from battle.tests.test_api_setup import BattleAPISetUp
 
 
-class MonsterAPITests(BattleAPISetUp):
+class BattleAPITests(BattleAPISetUp):
     def test_battle_monster_a_wins_create(self):
         # TODO
         return

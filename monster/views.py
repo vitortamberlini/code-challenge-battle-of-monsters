@@ -8,6 +8,7 @@ from django.db import transaction
 from django.http import Http404
 
 from monster.models import Monster
+from monster.nested_serializers import MonsterListRetrieveUpdateSerializer
 from monster.serializers import MonsterSerializer, MonsterFileSerializer
 
 
@@ -20,10 +21,16 @@ class MonsterListCreateView(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
 
     queryset = Monster.objects.all().order_by("name")
-    serializer_class = MonsterSerializer
+    serializer_class = MonsterListRetrieveUpdateSerializer
+    serializer_create_class = MonsterSerializer
     pagination_class = None
     authentication_classes = []
     permission_classes = []
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return self.serializer_create_class
+        return self.serializer_class
 
     @transaction.atomic
     def create(self, request, *args, **kwargs):
@@ -53,7 +60,7 @@ class MonsterUpdateRetrieveDeleteView(
     """
 
     queryset = Monster.objects.all().order_by("name")
-    serializer_class = MonsterSerializer
+    serializer_class = MonsterListRetrieveUpdateSerializer
     authentication_classes = []
     permission_classes = []
 
