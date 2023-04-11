@@ -1,0 +1,11 @@
+./.env
+.DS_Store
+venv
+db.sqlite3
+htmlcov
+*.pyc
+__pycache__
+./README.md
+.idea
+.pytest_cache
+*/tests/.pytest_cache
