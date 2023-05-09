@@ -20,17 +20,17 @@ class Challenge2(TestCase):
         self.assertEqual(value, 3)
 
     def test_Case_4(self):
-        value = dice_faces_calculator(1, 2, 1)
+        value = dice_faces_calculator(1, 1, 3)
 
         self.assertEqual(value, 2)
 
     def test_Case_5(self):
-        value = dice_faces_calculator(3, 6, 3)
+        value = dice_faces_calculator(5, 3, 3)
 
         self.assertEqual(value, 6)
 
     def test_Case_6(self):
-        value = dice_faces_calculator(6, 5, 4)
+        value = dice_faces_calculator(3, 5, 3)
 
         self.assertEqual(value, 6)
 
