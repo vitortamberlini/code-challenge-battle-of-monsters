@@ -26,16 +26,3 @@ lint:
 
 black:
 	python -m black --target-version=py37 .
-
-# Problem Solving Scripts
-problem_solving:
-	pytest -s problem-solving
-
-challenge_1:
-	pytest -s problem-solving/challenge-1/
-
-challenge_2:
-	pytest -s problem-solving/challenge-2/
-
-challenge_3:
-	pytest -s problem-solving/challenge-3/
