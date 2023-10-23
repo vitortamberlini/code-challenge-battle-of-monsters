@@ -8,16 +8,16 @@ from monster.tests.test_api_setup import MonsterAPISetUp
 
 class MonsterAPITests(MonsterAPISetUp):
     def test_monster_successful_import(self):
-        # TODO
-        return
+        response = self.post_file(self.correct_csv)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_monster_empty_import(self):
-        # TODO
-        return
+        response = self.post_file(self.empty_csv)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_monster_wrong_import(self):
-        # TODO
-        return
+        response = self.post_file(self.wrong_column_csv)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_monster_successful_create(self):
         response = self.client.post(
