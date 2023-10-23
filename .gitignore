@@ -8,4 +8,4 @@ __pycache__
 ./README.md
 .idea
 .pytest_cache
-*/tests/.pytest_cache
+*/tests/.pytest_cache!/assessment/.env
