@@ -5,7 +5,6 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
 
 from django.db import transaction
-from django.http import Http404
 
 from monster.models import Monster
 from monster.nested_serializers import MonsterListRetrieveUpdateSerializer
@@ -15,7 +14,9 @@ from monster.serializers import MonsterFileSerializer
 # Create your views here.
 
 
-class MonsterListCreateView(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class MonsterListCreateView(
+    mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+):
     """
     A simple ViewSet for creating monsters.
     """
@@ -45,15 +46,6 @@ class MonsterUpdateRetrieveDeleteView(
     serializer_class = MonsterListRetrieveUpdateSerializer
     authentication_classes = []
     permission_classes = []
-
-    @transaction.atomic
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            return super(MonsterUpdateRetrieveDeleteView, self).retrieve(
-                request, *args, **kwargs
-            )
-        except Http404:
-            raise Monster.DoesNotExist
 
     @transaction.atomic
     def update(self, request, *args, **kwargs):

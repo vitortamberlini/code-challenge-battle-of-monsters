@@ -1,5 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, URLValidator
+from django.db.models import Q
+
+from battle.models import Battle
 
 
 # Create your models here.
@@ -36,3 +39,7 @@ class Monster(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    @property
+    def battles(self):
+        return Battle.objects.filter(Q(monsterA=self.id) | Q(monsterB=self.id))

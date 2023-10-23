@@ -22,12 +22,17 @@ class MonsterAPISetUp(APITestCase):
         def file_path(file_name: str) -> str:
             return f"{MEDIA_ROOT}/{file_name}"
 
-        with open(file_path("monsters-correct.csv"), "rb") as correct_data:
-            self.correct_csv = SimpleUploadedFile(
-                name="monsters-correct.csv",
-                content=correct_data.read(),
-                content_type="multipart/form-data",
-            )
+        def open_csv(file_name: str) -> SimpleUploadedFile:
+            with open(file_path(file_name), "rb") as correct_data:
+                return SimpleUploadedFile(
+                    name=file_name,
+                    content=correct_data.read(),
+                    content_type="multipart/form-data",
+                )
+
+        self.correct_csv = open_csv("monsters-correct.csv")
+        self.empty_csv = open_csv("monsters-empty-monster.csv")
+        self.wrong_column_csv = open_csv("monsters-wrong-column.csv")
 
         self.monster_data = monster_b_data
         self.monster_data["id"] = 6
